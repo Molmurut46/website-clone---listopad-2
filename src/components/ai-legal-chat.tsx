@@ -29,6 +29,7 @@ const AILegalChat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showChat, setShowChat] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -76,64 +77,91 @@ const AILegalChat = () => {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 w-80 bg-white rounded-lg shadow-xl border border-gray-200">
-      {/* Chat messages */}
-      <div className="h-96 overflow-y-auto p-4 space-y-4">
-        {messages.length === 0 && (
-          <div className="text-center text-gray-500 py-4">
-            Задайте вопрос по юридической теме
-          </div>
-        )}
-        {messages.map((msg, idx) => (
-          <div
-            key={idx}
-            className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-          >
-            <div
-              className={`max-w-xs px-4 py-2 rounded-lg ${
-                msg.role === 'user'
-                  ? 'bg-primary-gold text-white'
-                  : 'bg-gray-100 text-gray-800'
-              }`}
+    <>
+      {showChat ? (
+        <div className="fixed bottom-4 right-4 z-50 w-80 bg-white rounded-lg shadow-xl border border-gray-200">
+          <CardHeader className="flex flex-row items-center justify-between p-4 border-b">
+            <CardTitle className="text-sm font-medium text-gray-800">AI Юрист</CardTitle>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-6 w-6 p-0"
+              onClick={() => setShowChat(false)}
             >
-              {msg.content}
-            </div>
-          </div>
-        ))}
-        {isLoading && (
-          <div className="flex justify-start">
-            <div className="max-w-xs px-4 py-2 bg-gray-100 text-gray-800 rounded-lg">
-              <div className="flex space-x-1">
-                <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></div>
-                <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+              <X className="h-4 w-4" />
+            </Button>
+          </CardHeader>
+          <div className="h-72 overflow-y-auto p-4 space-y-4">
+            {messages.length === 0 && (
+              <div className="text-center text-gray-500 py-4">
+                Задайте вопрос по юридической теме
               </div>
-            </div>
+            )}
+            {messages.map((msg, idx) => (
+              <div
+                key={idx}
+                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+              >
+                <div
+                  className={`max-w-xs px-4 py-2 rounded-lg ${
+                    msg.role === 'user'
+                      ? 'bg-primary-gold text-white'
+                      : 'bg-gray-100 text-gray-800'
+                  }`}
+                >
+                  {msg.content}
+                </div>
+              </div>
+            ))}
+            {isLoading && (
+              <div className="flex justify-start">
+                <div className="max-w-xs px-4 py-2 bg-gray-100 text-gray-800 rounded-lg">
+                  <div className="flex space-x-1">
+                    <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                    <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
-        )}
-      </div>
-      {/* Input form */}
-      <form onSubmit={handleSubmit} className="p-4 border-t">
-        <div className="flex space-x-2">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Введите ваш вопрос..."
-            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-gold"
-            disabled={isLoading}
-          />
-          <button
-            type="submit"
-            disabled={isLoading || !input.trim()}
-            className="px-4 py-2 bg-primary-gold text-white rounded-lg hover:bg-primary-dark-green transition-colors disabled:opacity-50"
-          >
-            {isLoading ? '...' : 'Отправить'}
-          </button>
+          <form onSubmit={handleSubmit} className="p-4 border-t">
+            <div className="flex space-x-2">
+              <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Введите ваш вопрос..."
+                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-gold"
+                disabled={isLoading}
+              />
+              <button
+                type="submit"
+                disabled={isLoading || !input.trim()}
+                className="px-4 py-2 bg-primary-gold text-white rounded-lg hover:bg-primary-dark-green transition-colors disabled:opacity-50"
+              >
+                {isLoading ? '...' : 'Отправить'}
+              </button>
+            </div>
+          </form>
+          <div ref={messagesEndRef} />
         </div>
-      </form>
-      <div ref={messagesEndRef} />
-    </div>
+      ) : (
+        <motion.div
+          className="fixed bottom-4 right-4 z-50"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+        >
+          <Button
+            onClick={() => setShowChat(true)}
+            className="w-12 h-12 rounded-full bg-primary-gold hover:bg-primary-dark-green shadow-lg"
+          >
+            <Bot className="h-5 w-5 text-white" />
+          </Button>
+        </motion.div>
+      )}
+    </>
   );
 };
 
