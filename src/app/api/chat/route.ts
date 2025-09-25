@@ -47,6 +47,7 @@ export async function POST(request: NextRequest) {
     const chatUrl = 'https://gigachat.devices.sberbank.ru/api/v1/chat/completions';
     const chatResponse = await fetch(chatUrl, {
       method: 'POST',
+      agent: httpsAgent,
       headers: {
         'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
