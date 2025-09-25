@@ -29,7 +29,7 @@ const AILegalChat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [showChat, setShowChat] = useState(true);
+  const [showChat, setShowChat] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -45,6 +45,21 @@ const AILegalChat = () => {
     window.addEventListener('open-ai-chat', handleOpenChat);
     return () => window.removeEventListener('open-ai-chat', handleOpenChat);
   }, []);
+
+  useEffect(() => {
+    if (showChat) return;
+
+    const timer = setTimeout(() => {
+      setShowChat(true);
+      // Add welcome message as assistant
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: 'У вас есть вопрос к адвокату? Можете пока задать его Ai-помощнику Адвоката Иванова. Что хотите спросить?'
+      }]);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [showChat]);
 
   const sendMessage = async () => {
     if (!input.trim() || isLoading) return;

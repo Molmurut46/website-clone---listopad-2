@@ -45,17 +45,6 @@ const LawyerProfileIvanov = () => {
           </div>
 
           <div className="lg:col-span-5 flex flex-col items-center text-center">
-            <div className="mt-8 space-y-4 w-full">
-              <div className="pt-2">
-                <button
-                  type="button"
-                  onClick={() => window.dispatchEvent(new CustomEvent('open-ai-chat'))}
-                  className="inline-block bg-primary text-primary-foreground font-semibold px-10 py-3 rounded-full hover:opacity-90 transition-opacity text-base"
-                >
-                  Задать вопрос AI
-                </button>
-              </div>
-            </div>
           </div>
         </div>
       </div>
