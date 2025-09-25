@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import Image from 'next/image';
 import { Phone, Mail } from 'lucide-react';
@@ -52,9 +54,13 @@ const LawyerProfile: React.FC<LawyerProfileProps> = ({ name, phone, bracketColor
           Прием по предварительной записи
         </p>
       </div>
-      <a href="#ai-chat" className={`font-semibold py-4 px-12 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:brightness-95 transform hover:scale-105 text-base ${buttonBG}`}>
+      <button
+        type="button"
+        onClick={() => window.dispatchEvent(new CustomEvent('open-ai-chat'))}
+        className={`font-semibold py-4 px-12 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:brightness-95 transform hover:scale-105 text-base ${buttonBG}`}
+      >
         Задать вопрос AI
-      </a>
+      </button>
     </div>
   );
 };

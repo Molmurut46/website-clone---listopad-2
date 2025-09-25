@@ -19,7 +19,6 @@ export default function HomePage() {
       <Faq />
       <ContactFormSection />
       <Footer />
-      <AILegalChat />
     </main>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Phone, Mail } from "lucide-react";
@@ -46,12 +47,13 @@ const LawyerProfileIvanov = () => {
           <div className="lg:col-span-5 flex flex-col items-center text-center">
             <div className="mt-8 space-y-4 w-full">
               <div className="pt-2">
-                <a
-                  href="#ai-chat"
+                <button
+                  type="button"
+                  onClick={() => window.dispatchEvent(new CustomEvent('open-ai-chat'))}
                   className="inline-block bg-primary text-primary-foreground font-semibold px-10 py-3 rounded-full hover:opacity-90 transition-opacity text-base"
                 >
                   Задать вопрос AI
-                </a>
+                </button>
               </div>
             </div>
           </div>
