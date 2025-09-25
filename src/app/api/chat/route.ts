@@ -1,9 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
 import https from 'https';
+import fs from 'fs';
+import path from 'path';
+
+const certPath = path.join(process.cwd(), 'src', 'lib', 'russian_trusted_root_ca.pem');
+const ca = fs.readFileSync(certPath);
 
 const httpsAgent = new https.Agent({
-  rejectUnauthorized: false
+  ca: ca,
+  rejectUnauthorized: true
 });
 
 async function getAccessToken() {
