@@ -36,7 +36,7 @@ const LawyerProfileIvanov = () => {
                 className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-primary"
                 aria-hidden="true"
               />
-              <div className="space-y-4 font-body text-base text-foreground leading-relaxed">
+              <div className="space-y-4 font-body text-base text-foreground leading-relaxed text-center">
                 {biographyItems.map((item, index) => (
                   <div key={index} dangerouslySetInnerHTML={{ __html: item }} />
                 ))}
