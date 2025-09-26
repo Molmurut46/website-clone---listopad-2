@@ -66,6 +66,7 @@
         "embla-carousel-react": "^8.6.0",
         "estree-walker": "2.0.2",
         "framer-motion": "^12.23.12",
+        "gigachat-node": "^2.4.5",
         "input-otp": "^1.4.2",
         "lucide-react": "^0.544.0",
         "mini-svg-data-uri": "^1.4.4",
@@ -113,5 +114,8 @@
         "tailwindcss": "^4",
         "tw-animate-css": "^1.3.8",
         "typescript": "^5"
+    },
+    "overrides": {
+        "zod": "^3.23.8"
     }
 }
