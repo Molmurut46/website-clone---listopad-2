@@ -93,49 +93,36 @@ if [ ! -f ".env" ]; then
   echo "Created .env from example. Add your GIGACHAT_AUTH_KEY if you have API access."
 fi
 
-# --- 4) Prepare local assets (placeholders) without external brand references ---
-echo "Preparing local placeholder assets..."
-prepare_ok=true
-if need_cmd curl || need_cmd wget; then
-  download "https://via.placeholder.com/1200x700.jpg?text=Hero" "public/assets/images/hero-bg.jpg" || prepare_ok=false
-  download "https://via.placeholder.com/380x253.jpg?text=Service+1" "public/assets/images/service-corporate.jpg" || prepare_ok=false
-  download "https://via.placeholder.com/380x253.jpg?text=Service+2" "public/assets/images/service-family.jpg" || prepare_ok=false
-  download "https://via.placeholder.com/380x253.jpg?text=Service" "public/assets/images/service-insurance.jpg" || prepare_ok=false
-  download "https://via.placeholder.com/380x480.jpg?text=Ivanov" "public/assets/images/albert-portrait.jpg" || prepare_ok=false
-  download "https://via.placeholder.com/380x480.jpg?text=Ivanov" "public/assets/images/kirill-portrait.jpg" || prepare_ok=false
-  download "https://via.placeholder.com/900x600.jpg?text=Case+1" "public/assets/images/case-moscow.jpg" || prepare_ok=false
-  download "https://via.placeholder.com/900x600.jpg?text=Case+2" "public/assets/images/case-kursk.jpg" || prepare_ok=false
-  download "https://via.placeholder.com/900x600.jpg?text=Case+3" "public/assets/images/case-belgorod.jpg" || prepare_ok=false
-  download "https://via.placeholder.com/1200x800.jpg?text=Contact" "public/assets/images/contact-bg.jpg" || prepare_ok=false
-else
-  echo "Neither curl nor wget found. Skipping image downloads."
-  prepare_ok=false
-fi
+# --- 4) Download assets to public/assets ---
+echo "Downloading assets..."
+ASSETS=(
+  # images
+  "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/9fbcac95-e251-4e02-b45a-e4b7d5d7a542-advokat-listopad-ru/assets/images/main_slide-18.jpg|public/assets/images/hero-bg.jpg"
+  "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/9fbcac95-e251-4e02-b45a-e4b7d5d7a542-advokat-listopad-ru/assets/images/mainpage_advocate_01-20.jpg|public/assets/images/service-corporate.jpg"
+  "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/9fbcac95-e251-4e02-b45a-e4b7d5d7a542-advokat-listopad-ru/assets/images/mainpage_advocate_02-21.jpg|public/assets/images/service-family.jpg"
+  "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/9fbcac95-e251-4e02-b45a-e4b7d5d7a542-advokat-listopad-ru/assets/images/rechtsbijstand-14.webp|public/assets/images/service-insurance.jpg"
+  "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/9fbcac95-e251-4e02-b45a-e4b7d5d7a542-advokat-listopad-ru/assets/images/photo_430869-12.webp|public/assets/images/albert-portrait.jpg"
+  "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/9fbcac95-e251-4e02-b45a-e4b7d5d7a542-advokat-listopad-ru/assets/images/d0d1e880653562f088630ddd74260827-13.webp|public/assets/images/kirill-portrait.jpg"
+  "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/9fbcac95-e251-4e02-b45a-e4b7d5d7a542-advokat-listopad-ru/assets/images/services_list_1-1.jpg|public/assets/images/case-moscow.jpg"
+  "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/9fbcac95-e251-4e02-b45a-e4b7d5d7a542-advokat-listopad-ru/assets/images/services_list_3-3.jpg|public/assets/images/case-kursk.jpg"
+  "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/9fbcac95-e251-4e02-b45a-e4b7d5d7a542-advokat-listopad-ru/assets/images/services_list_4-4.jpg|public/assets/images/case-belgorod.jpg"
+  "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/9fbcac95-e251-4e02-b45a-e4b7d5d7a542-advokat-listopad-ru/assets/images/ask-block-23.jpg|public/assets/images/contact-bg.jpg"
+  # svgs
+  "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/9fbcac95-e251-4e02-b45a-e4b7d5d7a542-advokat-listopad-ru/assets/svgs/whatsapp-2.svg|public/assets/svgs/whatsapp-orange.svg"
+  "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/9fbcac95-e251-4e02-b45a-e4b7d5d7a542-advokat-listopad-ru/assets/svgs/whatsapp-y-4.svg|public/assets/svgs/whatsapp-green.svg"
+  "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/9fbcac95-e251-4e02-b45a-e4b7d5d7a542-advokat-listopad-ru/assets/svgs/logo_footer-3.svg|public/assets/svgs/logo.svg"
+  "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/9fbcac95-e251-4e02-b45a-e4b7d5d7a542-advokat-listopad-ru/assets/images/arrow_icon-19.svg|public/assets/svgs/arrow.svg"
+)
 
-# Create simple SVGs locally
-cat > public/assets/svgs/whatsapp-orange.svg <<'SVG'
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-  <circle cx="12" cy="12" r="10" fill="#D4A574" />
-  <path d="M16.5 13.5c-.5 1.2-1.6 2.3-2.8 2.8-2.5 1.1-5.4-.2-6.5-2.7-.2-.5 0-1.1.5-1.3l1.8-.8c.5-.2 1.1 0 1.3.5.3.6.7 1.1 1.3 1.5.5.4 1.2.6 1.8.6.5 0 .9.4.9.9v1.4z" fill="#fff"/>
-</svg>
-SVG
-
-cat > public/assets/svgs/logo.svg <<'SVG'
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
-  <rect width="80" height="80" rx="8" fill="#1E6B52"/>
-  <text x="40" y="48" font-size="12" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif">ADVOKAT IVANOV</text>
-</svg>
-SVG
-
-cat > public/assets/svgs/arrow.svg <<'SVG'
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-  <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z" fill="#D4A574"/>
-</svg>
-SVG
-
-if [ "$prepare_ok" = false ]; then
-  echo "Asset placeholders prepared (SVGs). Some images may be missing if curl/wget was unavailable."
-fi
+for item in "${ASSETS[@]}"; do
+  IFS='|' read -r url out <<<"$item"
+  if [ ! -f "$out" ]; then
+    echo " - $(basename "$out")"
+    if ! download "$url" "$out"; then
+      echo "   Skipped (download failed): $url" >&2
+    fi
+  fi
+done
 
 # --- 5) Install dependencies ---
 node -v
