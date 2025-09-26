@@ -59,21 +59,6 @@ const ContactFormSection = () => {
                     на обработку персональных данных
                   </label>
                 </div>
-                <div className="flex items-start space-x-3">
-                  <Checkbox
-                    id="consent2"
-                    className="mt-[3px] shrink-0 rounded-[4px] border-white data-[state=checked]:border-secondary data-[state=checked]:bg-secondary"
-                  />
-                  <label
-                    htmlFor="consent2"
-                    className="font-body text-xs text-white"
-                  >
-                    Я ознакомлен с{" "}
-                    <Link href="#" className="underline hover:no-underline">
-                      политикой в отношении обработки персональных данных
-                    </Link>
-                  </label>
-                </div>
               </div>
             </div>
             <div className="flex flex-col">

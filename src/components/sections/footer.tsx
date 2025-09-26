@@ -64,14 +64,6 @@ const Footer = () => {
                         <span className="block">Регистрационный № 46/816</span>
                         <span className="block">2012-2025 Все права защищены.</span>
                     </div>
-                    <div>
-                        <a
-                          href="/privacy-policy"
-                          className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                        >
-                          Политика в отношении обработки персональных данных
-                        </a>
-                    </div>
                 </div>
             </div>
         </footer>
