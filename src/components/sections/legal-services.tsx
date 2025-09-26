@@ -89,9 +89,6 @@ const LegalServices = () => {
     <section className="bg-background py-20">
       <div className="container mx-auto px-5 max-w-[1200px]">
         <div className="flex justify-between items-center mb-16">
-          <h2 className="font-display text-4xl font-semibold text-primary-text">
-            Юридические услуги адвокатов
-          </h2>
           <div className="flex gap-3">
             <Button
               variant="ghost"

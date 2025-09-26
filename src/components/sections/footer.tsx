@@ -9,13 +9,6 @@ const Footer = () => {
                     {/* Logo and Firm Info */}
                     <div className="flex-shrink-0 lg:w-1/4">
                         <a href="/" className="flex items-start gap-4">
-                            <Image
-                                src="/assets/svgs/logo.svg"
-                                alt="Логотип компании"
-                                width={70}
-                                height={80}
-                                className="w-auto h-20"
-                            />
                             <div>
                                 <span className="block text-sm leading-tight text-white/90">Адвокатская палата Курской области</span>
                                 <span className="block text-sm leading-tight text-white/90">Адвокатский кабинет Иванова А.И.</span>
@@ -72,8 +65,11 @@ const Footer = () => {
                         <span className="block">2012-2025 Все права защищены.</span>
                     </div>
                     <div>
-                        <a href="/politika-v-otnoshenii-obrabotki-personalnyh-dannyh" className="text-xs text-white/60 hover:text-primary underline transition-colors">
-                            Политика в отношении обработки персональных данных
+                        <a
+                          href="/privacy-policy"
+                          className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                        >
+                          Политика в отношении обработки персональных данных
                         </a>
                     </div>
                 </div>
